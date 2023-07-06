@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Squad extends Model
+class Project extends Model
 {
     protected $fillable = ['squad_id', 'name', 'description'];
 }
