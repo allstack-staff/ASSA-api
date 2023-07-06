@@ -22,7 +22,7 @@ class CreateRequestsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->enum('priority', ['Low', 'Medium', 'High']);
-            $table->status('status', ['Accepted', 'Refused', 'Under review']);
+            $table->enum('status', ['Accepted', 'Refused', 'Under review']);
             $table->date('deadline')->nullable();
             $table->timestamps();
 

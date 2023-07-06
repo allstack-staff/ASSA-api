@@ -19,7 +19,7 @@ class CreateDemandsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->enum('priority', ['Low', 'Medium', 'High']);
-            $table->status('status', ['Finished', 'In progress', 'To do']);
+            $table->enum('status', ['Finished', 'In progress', 'To do']);
             $table->date('deadline')->nullable();
             $table->timestamps();
 

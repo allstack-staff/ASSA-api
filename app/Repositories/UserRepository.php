@@ -10,4 +10,9 @@ class UserRepository extends AbstractRepository
     {
         $this->model = $model;
     }
+
+    public function getByEmail(string $email)
+    {
+        return $this->model->where('email', $email)->first();
+    }
 }
