@@ -42,4 +42,11 @@ class UserController extends BaseController
     {
         return $this->sendResponse(new UserResource($this->userService->getById($id)), "", 200);
     }
+
+    public function delete(Request $request, $id)
+    {
+        $this->userService->delete($id);
+
+        return $this->sendResponse("", "", 200);
+    }
 }

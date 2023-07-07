@@ -60,4 +60,14 @@ class UserService
 
         return $existingUser;
     }
+
+    public function delete(int $id)
+    {
+        $existingUser = $this->userRepository->getById($id);
+        if (!$existingUser) {
+            throw new DomainException(['User not found.'], 404);
+        }
+        
+        return $this->userRepository->delete($id);
+    }
 }
