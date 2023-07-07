@@ -37,4 +37,9 @@ class UserController extends BaseController
     {
         return $this->sendResponse(new UserCollection($this->userService->getAll()), "", 200);
     }
+
+    public function getById(Request $request, $id)
+    {
+        return $this->sendResponse(new UserResource($this->userService->getById($id)), "", 200);
+    }
 }
