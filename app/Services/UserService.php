@@ -28,4 +28,21 @@ class UserService
 
         return $user;
     }
+
+    public function update(array $data, int $id)
+    {
+        $existingUser = $this->userRepository->getById($id);
+        if (!$existingUser) {
+            throw new DomainException(['User not found'], 404);
+        }
+
+        $existingUserByEmail = $this->userRepository->getByEmail($data['email']);
+        if ($existingUserByEmail && $existingUserByEmail->id != $id) {
+            throw new DomainException(['E-mail is already in use.'], 409);
+        }
+
+        $data['password'] = Hash::make($data['password']);
+
+        return $this->userRepository->update($id, $data);
+    }
 }

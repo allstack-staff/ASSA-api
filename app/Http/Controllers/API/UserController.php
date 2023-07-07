@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
+use App\Http\Resources\User\UserResource;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,21 @@ class UserController extends BaseController
 
         $user = $this->userService->create($userArray);
 
-        return $this->sendResponse($user, "", 201);
+        return $this->sendResponse(new UserResource($user), "", 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $userArray = [
+            "name" => $request->name,
+            "email" => $request->email,
+            "password" => $request->password,
+            "photo" => $request->photo,
+            "role" => $request->role
+        ];
+
+        $user = $this->userService->update($userArray, $id);
+
+        return $this->sendResponse(new UserResource($user), "", 200);
     }
 }

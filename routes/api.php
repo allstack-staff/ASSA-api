@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 // USERS
 Route::post('/users/register', [UserController::class, 'store']);
+Route::put('/users/{id}', [UserController::class, 'update']);
