@@ -45,4 +45,9 @@ class UserService
 
         return $this->userRepository->update($id, $data);
     }
+
+    public function getAll()
+    {
+        return $this->userRepository->getAll();
+    }
 }

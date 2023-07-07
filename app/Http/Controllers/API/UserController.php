@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -30,5 +31,10 @@ class UserController extends BaseController
         $user = $this->userService->update($request->validated(), $id);
 
         return $this->sendResponse(new UserResource($user), "", 200);
+    }
+
+    public function getAll(Request $request)
+    {
+        return $this->sendResponse(new UserCollection($this->userService->getAll()), "", 200);
     }
 }
