@@ -28,3 +28,4 @@ Route::post('/users/login', [UserController::class, 'login']);
 
 // SQUADS
 Route::post('/squads/register', [SquadController::class, 'store']);
+Route::put('/squads/{id}', [SquadController::class, 'update']);
