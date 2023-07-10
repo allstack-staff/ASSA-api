@@ -40,4 +40,9 @@ class SquadController extends BaseController
 
         return $this->sendResponse(new SquadCollection($this->squadService->getAll($filterParams)), "", 200);
     }
+
+    public function getById(Request $request, $id)
+    {
+        return $this->sendResponse(new SquadResource($this->squadService->getById($id)), "", 200);
+    }
 }

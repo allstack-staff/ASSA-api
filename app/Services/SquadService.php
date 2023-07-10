@@ -34,4 +34,13 @@ class SquadService
         return $this->squadRepository->getAll($filterParams);
     }
 
+    public function getById(int $id)
+    {
+        $existingSquad = $this->squadRepository->getById($id);
+        if (!$existingSquad) {
+            throw new DomainException(['Squad not found'], 404);
+        }
+
+        return $existingSquad;
+    }
 }
