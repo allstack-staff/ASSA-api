@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
+use App\Http\Filters\Squad\SquadFilter;
 use App\Http\Requests\Squad\CreateSquadRequest;
 use App\Http\Requests\Squad\UpdateSquadRequest;
+use App\Http\Resources\Squad\SquadCollection;
 use App\Http\Resources\Squad\SquadResource;
 use App\Services\SquadService;
+use Illuminate\Http\Request;
 
 class SquadController extends BaseController
 {
@@ -29,5 +32,12 @@ class SquadController extends BaseController
         $squad = $this->squadService->update($request->validated(), $id);
 
         return $this->sendResponse(new SquadResource($squad), "", 200);
+    }
+
+    public function getAll(Request $request)
+    {
+        $filterParams = SquadFilter::getFilter($request);
+
+        return $this->sendResponse(new SquadCollection($this->squadService->getAll($filterParams)), "", 200);
     }
 }

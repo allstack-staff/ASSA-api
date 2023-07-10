@@ -29,4 +29,9 @@ class SquadService
         return $this->squadRepository->update($id, $data);
     }
 
+    public function getAll(array $filterParams = [])
+    {
+        return $this->squadRepository->getAll($filterParams);
+    }
+
 }
