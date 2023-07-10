@@ -27,9 +27,9 @@ class UserController extends BaseController
         return $this->sendResponse(new UserResource($user), "", 201);
     }
 
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateUserRequest $request)
     {
-        $user = $this->userService->update($request->validated(), $id);
+        $user = $this->userService->update($request->validated(), $request->user()->id);
 
         return $this->sendResponse(new UserResource($user), "", 200);
     }
@@ -46,9 +46,9 @@ class UserController extends BaseController
         return $this->sendResponse(new UserResource($this->userService->getById($id)), "", 200);
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request)
     {
-        $this->userService->delete($id);
+        $this->userService->delete($request->user()->id);
 
         return $this->sendResponse("", "", 200);
     }
