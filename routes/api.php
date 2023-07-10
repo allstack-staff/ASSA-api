@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\SquadController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,6 @@ Route::delete('/users/me', [UserController::class, 'delete'])->middleware(['auth
 Route::get('/users', [UserController::class, 'getAll'])->middleware(['auth:sanctum', 'type.user']);
 Route::get('/users/{id}', [UserController::class, 'getById'])->middleware(['auth:sanctum', 'type.user']);
 Route::post('/users/login', [UserController::class, 'login']);
+
+// SQUADS
+Route::post('/squads/register', [SquadController::class, 'store']);
