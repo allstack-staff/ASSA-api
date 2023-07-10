@@ -70,4 +70,18 @@ class UserService
         
         return $this->userRepository->delete($id);
     }
+
+    public function login(string $email, string $password)
+    {
+        $user = $this->userRepository->getByEmail($email);
+        if ($user == NULL) {
+            throw new DomainException(["Incorrect login or password."], 401);
+        }
+
+        if (!password_verify($password, $user->password)) {
+            throw new DomainException(["Incorrect login or password."], 401);
+        }
+
+        return $user->createToken('mobile', ['role:user'])->plainTextToken;
+    }
 }

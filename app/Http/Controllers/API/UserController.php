@@ -52,4 +52,14 @@ class UserController extends BaseController
 
         return $this->sendResponse("", "", 200);
     }
+
+    public function login(Request $request)
+    {
+        return $this->sendResponse($this->userService->login($request->email, $request->password), "", 200);
+    }
+
+    public function me(Request $request)
+    {
+        return $this->sendResponse($request->user(), "", 200);
+    }
 }

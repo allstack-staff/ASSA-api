@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 // USERS
 Route::post('/users/register', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
-Route::get('/users', [UserController::class, 'getAll']);
-Route::get('/users/{id}', [UserController::class, 'getById']);
+Route::get('/users', [UserController::class, 'getAll'])->middleware(['auth:sanctum', 'type.user']);
+Route::get('/users/{id}', [UserController::class, 'getById'])->middleware(['auth:sanctum', 'type.user']);
 Route::delete('/users/{id}', [UserController::class, 'delete']);
+Route::post('/users/login', [UserController::class, 'login']);
+Route::get('/users/me', [UserController::class, 'me'])->middleware(['auth:sanctum', 'type.user']);
