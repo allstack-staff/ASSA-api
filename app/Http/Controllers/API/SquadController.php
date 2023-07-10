@@ -45,4 +45,9 @@ class SquadController extends BaseController
     {
         return $this->sendResponse(new SquadResource($this->squadService->getById($id)), "", 200);
     }
+
+    public function delete(Request $request, $id)
+    {
+        return $this->squadService->delete($id);
+    }
 }

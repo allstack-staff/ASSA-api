@@ -31,3 +31,4 @@ Route::post('/squads/register', [SquadController::class, 'store']);
 Route::put('/squads/{id}', [SquadController::class, 'update']);
 Route::get('/squads', [SquadController::class, 'getAll']);
 Route::get('/squads/{id}', [SquadController::class, 'getById']);
+Route::delete('/squads/{id}', [SquadController::class, 'delete']);

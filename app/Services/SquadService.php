@@ -23,7 +23,7 @@ class SquadService
     {
         $existingSquad = $this->squadRepository->getById($id);
         if (!$existingSquad) {
-            throw new DomainException(['Squad not found'], 404);
+            throw new DomainException(['Squad not found.'], 404);
         }
 
         return $this->squadRepository->update($id, $data);
@@ -38,9 +38,19 @@ class SquadService
     {
         $existingSquad = $this->squadRepository->getById($id);
         if (!$existingSquad) {
-            throw new DomainException(['Squad not found'], 404);
+            throw new DomainException(['Squad not found.'], 404);
         }
 
         return $existingSquad;
+    }
+
+    public function delete(int $id)
+    {
+        $existingSquad = $this->squadRepository->getById($id);
+        if (!$existingSquad) {
+            throw new DomainException(['Squad not found.'], 404);
+        }
+        
+        return $this->squadRepository->delete($id);
     }
 }
