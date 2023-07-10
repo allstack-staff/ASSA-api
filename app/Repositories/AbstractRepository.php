@@ -13,7 +13,7 @@ abstract class AbstractRepository
         $this->model = $model;
     }
 
-    public function getAll()
+    public function getAll(array $filterParams = [])
     {
         return $this->model->all();
     }
@@ -41,5 +41,16 @@ abstract class AbstractRepository
         $record = $this->getById($id);
 
         return $record->delete();
+    }
+
+    protected function setPaginationParameters(array &$filterParams, &$perPage, &$page)
+    {
+        if (isset($filterParams['perPage']) && !empty($filterParams['perPage'])) {
+            $perPage = intval($filterParams['perPage']);
+        }
+
+        if (isset($filterParams['page']) && !empty($filterParams['page'])) {
+            $page = intval($filterParams['page']);
+        }
     }
 }

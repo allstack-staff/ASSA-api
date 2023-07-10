@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
+use App\Http\Filters\User\UserFilter;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\User\UserCollection;
@@ -35,7 +36,9 @@ class UserController extends BaseController
 
     public function getAll(Request $request)
     {
-        return $this->sendResponse(new UserCollection($this->userService->getAll()), "", 200);
+        $filterParams = UserFilter::getFilter($request);
+
+        return $this->sendResponse(new UserCollection($this->userService->getAll($filterParams)), "", 200);
     }
 
     public function getById(Request $request, $id)

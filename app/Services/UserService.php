@@ -46,9 +46,9 @@ class UserService
         return $this->userRepository->update($id, $data);
     }
 
-    public function getAll()
+    public function getAll(array $filterParams = [])
     {
-        return $this->userRepository->getAll();
+        return $this->userRepository->getAll($filterParams);
     }
 
     public function getById(int $id)
