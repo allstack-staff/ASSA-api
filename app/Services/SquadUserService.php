@@ -54,4 +54,27 @@ class SquadUserService
     {
         return $this->squadUserRepository->getSquadUsersBySquad($squad_id);
     }
+
+    public function update(array $data, int $squad_id, int $user_id)
+    {
+        $existingSquad = $this->squadRepository->getById($squad_id);
+        if (!$existingSquad) {
+            throw new DomainException(["Squad not found."], 404);
+        }
+
+        $existingUser = $this->userRepository->getById($user_id);
+        if (!$existingUser) {
+            throw new DomainException(["User not found."], 404);
+        }
+
+        $existingSquadUser = $this->squadUserRepository->getBySquadAndUser($squad_id, $user_id);
+        if (!$existingSquadUser) {
+            throw new DomainException(["User doesn't belong to squad."], 403);
+        }
+
+        $data["squad_id"] = $squad_id;
+        $data["user_id"] = $user_id;
+
+        return $this->squadUserRepository->update($existingSquadUser->id, $data);
+    }
 }

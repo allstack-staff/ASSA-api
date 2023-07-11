@@ -6,7 +6,7 @@ use App\Exceptions\DomainException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateSquadRequest extends FormRequest
+class UpdateSquadUserRequest extends FormRequest
 {
     public function rules()
     {
