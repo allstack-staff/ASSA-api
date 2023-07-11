@@ -12,6 +12,8 @@ class SquadUserResource extends JsonResource
     {
         return [
             "id" => $this->id,
+            "squad_id" => $this->squad_id,
+            "user_id" => $this->user_id,
             "role" => $this->role,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at

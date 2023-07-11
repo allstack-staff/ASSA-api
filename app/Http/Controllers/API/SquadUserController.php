@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
 use App\Http\Requests\SquadUser\CreateSquadUserRequest;
+use App\Http\Resources\SquadUser\SquadUserCollection;
 use App\Http\Resources\SquadUser\SquadUserResource;
 use App\Http\Resources\User\UserCollection;
 use App\Services\SquadUserService;
@@ -27,6 +28,6 @@ class SquadUserController extends BaseController
 
     public function getUsersBySquad(Request $request, $squad_id)
     {
-        return $this->sendResponse(new UserCollection($this->squadUserService->getUsersBySquad($squad_id)), "", 200);
+        return $this->sendResponse(new SquadUserCollection($this->squadUserService->getSquadUsersBySquad($squad_id)), "", 200);
     }
 }

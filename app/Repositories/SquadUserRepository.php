@@ -17,6 +17,11 @@ class SquadUserRepository extends AbstractRepository
         return $this->model->where('squad_id', $squad_id)->where('user_id', $user_id)->first();
     }
 
+    public function getSquadUsersBySquad(int $squad_id)
+    {
+        return $this->model->where('squad_id', $squad_id)->get();
+    }
+
     public function getUsersBySquad(int $squad_id)
     {
         return $this->model
