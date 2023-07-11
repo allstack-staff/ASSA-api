@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
-use App\Exceptions\DomainException;
 use App\Repositories\SquadRepository;
+use App\Traits\Squad\SquadFinder;
 
 class SquadService
 {
+    use SquadFinder;
+
     private $squadRepository;
 
     public function __construct(SquadRepository $squadRepository)
@@ -21,10 +23,7 @@ class SquadService
 
     public function update(array $data, int $id)
     {
-        $existingSquad = $this->squadRepository->getById($id);
-        if (!$existingSquad) {
-            throw new DomainException(['Squad not found.'], 404);
-        }
+        $existingSquad = $this->findSquadOrFail($id);
 
         return $this->squadRepository->update($id, $data);
     }
@@ -36,20 +35,14 @@ class SquadService
 
     public function getById(int $id)
     {
-        $existingSquad = $this->squadRepository->getById($id);
-        if (!$existingSquad) {
-            throw new DomainException(['Squad not found.'], 404);
-        }
+        $existingSquad = $this->findSquadOrFail($id);
 
         return $existingSquad;
     }
 
     public function delete(int $id)
     {
-        $existingSquad = $this->squadRepository->getById($id);
-        if (!$existingSquad) {
-            throw new DomainException(['Squad not found.'], 404);
-        }
+        $existingSquad = $this->findSquadOrFail($id);
         
         return $this->squadRepository->delete($id);
     }

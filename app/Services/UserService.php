@@ -4,10 +4,13 @@ namespace App\Services;
 
 use App\Exceptions\DomainException;
 use App\Repositories\UserRepository;
+use App\Traits\User\UserFinder;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
+    use UserFinder;
+
     private $userRepository;
 
     public function __construct(UserRepository $userRepository)
@@ -31,10 +34,7 @@ class UserService
 
     public function update(array $data, int $id)
     {
-        $existingUser = $this->userRepository->getById($id);
-        if (!$existingUser) {
-            throw new DomainException(['User not found'], 404);
-        }
+        $existingUser = $this->findUserOrFail($id);
 
         $existingUserByEmail = $this->userRepository->getByEmail($data['email']);
         if ($existingUserByEmail && $existingUserByEmail->id != $id) {
@@ -53,20 +53,14 @@ class UserService
 
     public function getById(int $id)
     {
-        $existingUser = $this->userRepository->getById($id);
-        if (!$existingUser) {
-            throw new DomainException(['User not found.'], 404);
-        }
+        $existingUser = $this->findUserOrFail($id);
 
         return $existingUser;
     }
 
     public function delete(int $id)
     {
-        $existingUser = $this->userRepository->getById($id);
-        if (!$existingUser) {
-            throw new DomainException(['User not found.'], 404);
-        }
+        $existingUser = $this->findUserOrFail($id);
         
         return $this->userRepository->delete($id);
     }

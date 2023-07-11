@@ -6,9 +6,16 @@ use App\Exceptions\DomainException;
 use App\Repositories\SquadRepository;
 use App\Repositories\SquadUserRepository;
 use App\Repositories\UserRepository;
+use App\Traits\Squad\SquadFinder;
+use App\Traits\Squad\SquadUserFinder;
+use App\Traits\User\UserFinder;
 
 class SquadUserService
 {
+    use SquadFinder;
+    use UserFinder;
+    use SquadUserFinder;
+
     private $squadUserRepository;
     private $squadRepository;
     private $userRepository;
@@ -25,15 +32,9 @@ class SquadUserService
 
     public function create(array $data, int $squad_id, int $user_id)
     {
-        $existingSquad = $this->squadRepository->getById($squad_id);
-        if (!$existingSquad) {
-            throw new DomainException(["Squad not found."], 404);
-        }
+        $existingSquad = $this->findSquadOrFail($squad_id);
 
-        $existingUser = $this->userRepository->getById($user_id);
-        if (!$existingUser) {
-            throw new DomainException(["User not found."], 404);
-        }
+        $existingUser = $this->findUserOrFail($user_id);
 
         if ($this->squadUserRepository->getBySquadAndUser($squad_id, $user_id)) {
             throw new DomainException(["User is already in the squad."], 409);
@@ -57,20 +58,11 @@ class SquadUserService
 
     public function update(array $data, int $squad_id, int $user_id)
     {
-        $existingSquad = $this->squadRepository->getById($squad_id);
-        if (!$existingSquad) {
-            throw new DomainException(["Squad not found."], 404);
-        }
+        $existingSquad = $this->findSquadOrFail($squad_id);
 
-        $existingUser = $this->userRepository->getById($user_id);
-        if (!$existingUser) {
-            throw new DomainException(["User not found."], 404);
-        }
+        $existingUser = $this->findUserOrFail($user_id);
 
-        $existingSquadUser = $this->squadUserRepository->getBySquadAndUser($squad_id, $user_id);
-        if (!$existingSquadUser) {
-            throw new DomainException(["User doesn't belong to squad."], 403);
-        }
+        $existingSquadUser = $this->findSquadUserOrFailBySquadAndUser($squad_id, $user_id);
 
         $data["squad_id"] = $squad_id;
         $data["user_id"] = $user_id;
@@ -80,40 +72,22 @@ class SquadUserService
 
     public function deleteUserFromSquad(int $squad_id, int $user_id)
     {
-        $existingSquad = $this->squadRepository->getById($squad_id);
-        if (!$existingSquad) {
-            throw new DomainException(["Squad not found."], 404);
-        }
+        $existingSquad = $this->findSquadOrFail($squad_id);
 
-        $existingUser = $this->userRepository->getById($user_id);
-        if (!$existingUser) {
-            throw new DomainException(["User not found."], 404);
-        }
+        $existingUser = $this->findUserOrFail($user_id);
 
-        $existingSquadUser = $this->squadUserRepository->getBySquadAndUser($squad_id, $user_id);
-        if (!$existingSquadUser) {
-            throw new DomainException(["User doesn't belong to squad."], 403);
-        }
+        $existingSquadUser = $this->findSquadUserOrFailBySquadAndUser($squad_id, $user_id);
 
         return $this->squadUserRepository->delete($existingSquadUser->id);
     }
 
     public function getBySquadAndUser(int $squad_id, int $user_id)
     {
-        $existingSquad = $this->squadRepository->getById($squad_id);
-        if (!$existingSquad) {
-            throw new DomainException(["Squad not found."], 404);
-        }
+        $existingSquad = $this->findSquadOrFail($squad_id);
 
-        $existingUser = $this->userRepository->getById($user_id);
-        if (!$existingUser) {
-            throw new DomainException(["User not found."], 404);
-        }
+        $existingUser = $this->findUserOrFail($user_id);
 
-        $existingSquadUser = $this->squadUserRepository->getBySquadAndUser($squad_id, $user_id);
-        if (!$existingSquadUser) {
-            throw new DomainException(["User doesn't belong to squad."], 403);
-        }
+        $existingSquadUser = $this->findSquadUserOrFailBySquadAndUser($squad_id, $user_id);
         
         return $this->squadUserRepository->getBySquadAndUser($squad_id, $user_id);
     }
