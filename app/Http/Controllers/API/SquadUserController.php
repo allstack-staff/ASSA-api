@@ -31,6 +31,11 @@ class SquadUserController extends BaseController
         return $this->sendResponse(new SquadUserCollection($this->squadUserService->getSquadUsersBySquad($squad_id)), "", 200);
     }
 
+    public function getBySquadAndUser(Request $request, $squad_id, $user_id)
+    {
+        return $this->sendResponse(new SquadUserResource($this->squadUserService->getBySquadAndUser($squad_id, $user_id)), "", 200);
+    }
+
     public function update(UpdateSquadUserRequest $request, $squad_id, $user_id)
     {
         return $this->sendResponse(new SquadUserResource($this->squadUserService->update($request->validated(), $squad_id, $user_id)), "", 200);
