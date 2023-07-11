@@ -35,4 +35,11 @@ class SquadUserController extends BaseController
     {
         return $this->sendResponse(new SquadUserResource($this->squadUserService->update($request->validated(), $squad_id, $user_id)), "", 200);
     }
+
+    public function deleteUserFromSquad(Request $request, $squad_id, $user_id)
+    {
+        $this->squadUserService->deleteUserFromSquad($squad_id, $user_id);
+
+        return $this->sendResponse("", "", 200);
+    }
 }
