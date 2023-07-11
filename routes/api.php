@@ -35,3 +35,4 @@ Route::get('/squads/{id}', [SquadController::class, 'getById']);
 Route::delete('/squads/{id}', [SquadController::class, 'delete']);
 
 Route::post('/squads/{squad_id}/users/{user_id}', [SquadUserController::class, 'store']);
+Route::get('/squads/{squad_id}/users', [SquadUserController::class, 'getUsersBySquad']);

@@ -44,4 +44,9 @@ class SquadUserService
 
         return $this->squadUserRepository->create($data);
     }
+
+    public function getUsersBySquad(int $squad_id)
+    {
+        return $this->squadUserRepository->getUsersBySquad($squad_id);
+    }
 }
