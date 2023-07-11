@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\SquadController;
+use App\Http\Controllers\API\SquadUserController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,5 @@ Route::put('/squads/{id}', [SquadController::class, 'update']);
 Route::get('/squads', [SquadController::class, 'getAll']);
 Route::get('/squads/{id}', [SquadController::class, 'getById']);
 Route::delete('/squads/{id}', [SquadController::class, 'delete']);
+
+Route::post('/squads/{squad_id}/users/{user_id}', [SquadUserController::class, 'store']);
