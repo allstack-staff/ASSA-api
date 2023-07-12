@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\DemandController;
 use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\API\SquadController;
 use App\Http\Controllers\API\SquadUserController;
@@ -48,3 +49,10 @@ Route::put('/squads/{squad_id}/projects/{project_id}', [ProjectController::class
 Route::get('/squads/{squad_id}/projects', [ProjectController::class, 'getAllBySquad']);
 Route::get('/squads/{squad_id}/projects/{project_id}', [ProjectController::class, 'getById']);
 Route::delete('/squads/{squad_id}/projects/{project_id}', [ProjectController::class, 'delete']);
+
+// PROJECT DEMANDS
+Route::post('/squads/{squad_id}/projects/{project_id}/demands/register', [DemandController::class, 'store']);
+Route::put('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [DemandController::class, 'update']);
+Route::get('/squads/{squad_id}/projects/{project_id}/demands', [DemandController::class, 'getAllByProject']);
+Route::get('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [DemandController::class, 'getById']);
+Route::delete('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [DemandController::class, 'delete']);

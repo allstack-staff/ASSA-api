@@ -10,4 +10,9 @@ class DemandRepository extends AbstractRepository
     {
         $this->model = $model;
     }
+
+    public function getAllByProject(int $project_id)
+    {
+        return $this->model->where('project_id', $project_id)->get();
+    }
 }
