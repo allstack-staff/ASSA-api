@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\API\SquadController;
 use App\Http\Controllers\API\SquadUserController;
 use App\Http\Controllers\API\UserController;
@@ -34,8 +35,10 @@ Route::get('/squads', [SquadController::class, 'getAll']);
 Route::get('/squads/{id}', [SquadController::class, 'getById']);
 Route::delete('/squads/{id}', [SquadController::class, 'delete']);
 
-Route::post('/squads/{squad_id}/users/{user_id}', [SquadUserController::class, 'store']);
+Route::post('/squads/{squad_id}/users/{user_id}/register', [SquadUserController::class, 'store']);
 Route::put('/squads/{squad_id}/users/{user_id}', [SquadUserController::class, 'update']);
 Route::get('/squads/{squad_id}/users', [SquadUserController::class, 'getUsersBySquad']);
 Route::get('/squads/{squad_id}/users/{user_id}', [SquadUserController::class, 'getBySquadAndUser']);
 Route::delete('/squads/{squad_id}/users/{user_id}', [SquadUserController::class, 'deleteUserFromSquad']);
+
+Route::post('/squads/{squad_id}/projects/register', [ProjectController::class, 'store']);
