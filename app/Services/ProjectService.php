@@ -46,4 +46,12 @@ class ProjectService
 
         return $this->projectRepository->getAllBySquad($squad_id);
     }
+
+    public function getById(int $squad_id, int $project_id)
+    {
+        $existingSquad = $this->findSquadOrFail($squad_id);
+        $existingProject = $this->findProjectOrFail($project_id);
+
+        return $existingProject;
+    }
 }

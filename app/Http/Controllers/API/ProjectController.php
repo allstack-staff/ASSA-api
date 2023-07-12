@@ -39,4 +39,11 @@ class ProjectController extends BaseController
 
         return $this->sendResponse(new ProjectCollection($projects), "", 200);
     }
+
+    public function getById(Request $request, $squad_id, $project_id)
+    {
+        $project = $this->projectService->getById($squad_id, $project_id);
+
+        return $this->sendResponse(new ProjectResource($project), "", 200);
+    }
 }
