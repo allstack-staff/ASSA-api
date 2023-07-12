@@ -47,3 +47,4 @@ Route::post('/squads/{squad_id}/projects/register', [ProjectController::class, '
 Route::put('/squads/{squad_id}/projects/{project_id}', [ProjectController::class, 'update']);
 Route::get('/squads/{squad_id}/projects', [ProjectController::class, 'getAllBySquad']);
 Route::get('/squads/{squad_id}/projects/{project_id}', [ProjectController::class, 'getById']);
+Route::delete('/squads/{squad_id}/projects/{project_id}', [ProjectController::class, 'delete']);

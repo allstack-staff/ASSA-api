@@ -54,4 +54,12 @@ class ProjectService
 
         return $existingProject;
     }
+
+    public function delete(int $squad_id, int $project_id)
+    {
+        $existingSquad = $this->findSquadOrFail($squad_id);
+        $existingProject = $this->findProjectOrFail($project_id);
+
+        return $this->projectRepository->delete($project_id);
+    }
 }

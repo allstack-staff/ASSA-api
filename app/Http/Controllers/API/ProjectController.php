@@ -46,4 +46,11 @@ class ProjectController extends BaseController
 
         return $this->sendResponse(new ProjectResource($project), "", 200);
     }
+
+    public function delete(Request $request, $squad_id, $project_id)
+    {
+        $project = $this->projectService->delete($squad_id, $project_id);
+
+        return $this->sendResponse("", "", 200);
+    }
 }
