@@ -42,3 +42,4 @@ Route::get('/squads/{squad_id}/users/{user_id}', [SquadUserController::class, 'g
 Route::delete('/squads/{squad_id}/users/{user_id}', [SquadUserController::class, 'deleteUserFromSquad']);
 
 Route::post('/squads/{squad_id}/projects/register', [ProjectController::class, 'store']);
+Route::put('/squads/{squad_id}/projects/{project_id}', [ProjectController::class, 'update']);

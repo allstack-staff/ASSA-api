@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
 use App\Http\Requests\Project\CreateProjectRequest;
+use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Http\Resources\Project\ProjectResource;
 use App\Services\ProjectService;
 
@@ -19,6 +20,13 @@ class ProjectController extends BaseController
     public function store(CreateProjectRequest $request, $squad_id)
     {
         $project = $this->projectService->create($request->validated(), $squad_id);
+
+        return $this->sendResponse(new ProjectResource($project), "", 201);
+    }
+
+    public function update(UpdateProjectRequest $request, $squad_id, $project_id)
+    {
+        $project = $this->projectService->update($request->validated(), $squad_id, $project_id);
 
         return $this->sendResponse(new ProjectResource($project), "", 201);
     }
