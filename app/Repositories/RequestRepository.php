@@ -10,4 +10,14 @@ class RequestRepository extends AbstractRepository
     {
         $this->model = $model;
     }
+
+    public function getAllBySquad(int $squad_id)
+    {
+        return $this->model->where('squad_id', $squad_id)->get();
+    }
+
+    public function getAllByProject(int $project_id)
+    {
+        return $this->model->where('project_id', $project_id)->get();
+    }
 }

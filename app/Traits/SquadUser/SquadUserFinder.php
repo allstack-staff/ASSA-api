@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Traits\Squad;
+namespace App\Traits\SquadUser;
 
 use App\Exceptions\DomainException;
-use App\Models\Squad;
 use App\Models\SquadUser;
 
 trait SquadUserFinder
 {
-    public function findSquadUserOrFailBySquadAndUser(int $user_id, int $squad_id): Squad
+    public function findSquadUserOrFailBySquadAndUser(int $user_id, int $squad_id): SquadUser
     {
         $squadUser = SquadUser::findBySquadAndUser($squad_id, $user_id);
         if (!$squadUser) {

@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\API\DemandController;
 use App\Http\Controllers\API\ProjectController;
+use App\Http\Controllers\API\RequestController;
 use App\Http\Controllers\API\SquadController;
 use App\Http\Controllers\API\SquadUserController;
 use App\Http\Controllers\API\UserController;
+use Facade\FlareClient\Context\RequestContext;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,3 +58,10 @@ Route::put('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [Dema
 Route::get('/squads/{squad_id}/projects/{project_id}/demands', [DemandController::class, 'getAllByProject']);
 Route::get('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [DemandController::class, 'getById']);
 Route::delete('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [DemandController::class, 'delete']);
+
+// PROJECT REQUESTS
+Route::get('/squads/{squad_id}/projects/{project_id}/requests', [RequestController::class, 'getAllByProject']);
+Route::get('/squads/{squad_id}/projects/{project_id}/requests/{request_id}', [RequestController::class, 'getById']);
+
+// REQUESTS
+Route::post('/requests/register', [RequestController::class, 'store']);
