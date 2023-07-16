@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Authorization\UserAuthorization;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Filters\User\UserFilter;
 use App\Http\Requests\User\CreateUserRequest;
@@ -22,6 +23,8 @@ class UserController extends BaseController
 
     public function store(CreateUserRequest $request)
     {
+        UserAuthorization::store($request->user());
+
         $user = $this->userService->create($request->validated());
 
         return $this->sendResponse(new UserResource($user), "", 201);
@@ -36,6 +39,8 @@ class UserController extends BaseController
 
     public function getAll(Request $request)
     {
+        UserAuthorization::getAll($request->user());
+
         $filterParams = UserFilter::getFilter($request);
 
         return $this->sendResponse(new UserCollection($this->userService->getAll($filterParams)), "", 200);
