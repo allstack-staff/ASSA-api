@@ -2,6 +2,8 @@
 
 namespace App\Policies;
 
+use App\Models\Squad;
+use App\Models\SquadUser;
 use App\Models\User;
 
 class SquadPolicy
@@ -11,9 +13,15 @@ class SquadPolicy
         return $user->isAdmin();
     }
 
-    public function update(User $user)
+    public function update(User $user, $squad, $squadUser)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() ||
+            ($squad->id == $squadUser->squad_id
+                &&
+                $user->id == $squadUser->user_id
+                &&
+                $squadUser->role == "Coordinator"
+            );
     }
 
     public function getAll(User $user)
@@ -21,13 +29,23 @@ class SquadPolicy
         return $user->isAdmin();
     }
 
-    public function getById(User $user)
+    public function getById(User $user, Squad $squad, SquadUser $squadUser)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() ||
+            ($squad->id == $squadUser->squad_id
+                &&
+                $user->id == $squadUser->user_id
+            );
     }
 
-    public function deleteById(User $user)
+    public function deleteById(User $user, Squad $squad, SquadUser $squadUser)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() ||
+            ($squad->id == $squadUser->squad_id
+                &&
+                $user->id == $squadUser->user_id
+                &&
+                $squadUser->role == "Coordinator"
+            );
     }
 }
