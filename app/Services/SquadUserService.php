@@ -7,7 +7,7 @@ use App\Repositories\SquadRepository;
 use App\Repositories\SquadUserRepository;
 use App\Repositories\UserRepository;
 use App\Traits\Squad\SquadFinder;
-use App\Traits\Squad\SquadUserFinder;
+use App\Traits\SquadUser\SquadUserFinder;
 use App\Traits\User\UserFinder;
 
 class SquadUserService

@@ -9,6 +9,7 @@ use App\Http\Requests\Squad\CreateSquadRequest;
 use App\Http\Requests\Squad\UpdateSquadRequest;
 use App\Http\Resources\Squad\SquadCollection;
 use App\Http\Resources\Squad\SquadResource;
+use App\Http\Resources\SquadUser\SquadUserResource;
 use App\Services\SquadService;
 use Illuminate\Http\Request;
 
@@ -25,9 +26,16 @@ class SquadController extends BaseController
     {
         SquadAuthorization::store($request->user()->id);
 
-        $squad = $this->squadService->create($request->validated());
+        $data = $this->squadService->create($request->validated(), $request->user());
 
-        return $this->sendResponse(new SquadResource($squad), "", 201);
+        return $this->sendResponse(
+            [
+                "squad" => new SquadResource($data["squad"]),
+                "squad_user" => new SquadUserResource($data["squad_user"])
+            ],
+            "",
+            201
+        );
     }
 
     public function update(UpdateSquadRequest $request, $id)
