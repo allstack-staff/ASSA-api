@@ -32,11 +32,11 @@ Route::get('/users/{id}', [UserController::class, 'getById'])->middleware(['auth
 Route::post('/users/login', [UserController::class, 'login']);
 
 // SQUADS
-Route::post('/squads/register', [SquadController::class, 'store']);
-Route::put('/squads/{id}', [SquadController::class, 'update']);
-Route::get('/squads', [SquadController::class, 'getAll']);
-Route::get('/squads/{id}', [SquadController::class, 'getById']);
-Route::delete('/squads/{id}', [SquadController::class, 'delete']);
+Route::post('/squads/register', [SquadController::class, 'store'])->middleware(['auth:sanctum', 'type.user']);
+Route::put('/squads/{id}', [SquadController::class, 'update'])->middleware(['auth:sanctum', 'type.user']);
+Route::get('/squads', [SquadController::class, 'getAll'])->middleware(['auth:sanctum', 'type.user']);
+Route::get('/squads/{id}', [SquadController::class, 'getById'])->middleware(['auth:sanctum', 'type.user']);
+Route::delete('/squads/{id}', [SquadController::class, 'delete'])->middleware(['auth:sanctum', 'type.user']);
 
 // SQUAD USERS
 Route::post('/squads/{squad_id}/users/{user_id}/register', [SquadUserController::class, 'store']);

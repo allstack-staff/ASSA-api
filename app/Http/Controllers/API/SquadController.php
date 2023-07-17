@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Authorization\SquadAuthorization;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Filters\Squad\SquadFilter;
 use App\Http\Requests\Squad\CreateSquadRequest;
@@ -22,6 +23,8 @@ class SquadController extends BaseController
 
     public function store(CreateSquadRequest $request)
     {
+        SquadAuthorization::store($request->user()->id);
+
         $squad = $this->squadService->create($request->validated());
 
         return $this->sendResponse(new SquadResource($squad), "", 201);
@@ -29,6 +32,8 @@ class SquadController extends BaseController
 
     public function update(UpdateSquadRequest $request, $id)
     {
+        SquadAuthorization::update($request->user()->id, $id);
+
         $squad = $this->squadService->update($request->validated(), $id);
 
         return $this->sendResponse(new SquadResource($squad), "", 200);
@@ -36,6 +41,8 @@ class SquadController extends BaseController
 
     public function getAll(Request $request)
     {
+        SquadAuthorization::getAll($request->user()->id);
+
         $filterParams = SquadFilter::getFilter($request);
 
         return $this->sendResponse(new SquadCollection($this->squadService->getAll($filterParams)), "", 200);
@@ -43,11 +50,15 @@ class SquadController extends BaseController
 
     public function getById(Request $request, $id)
     {
+        SquadAuthorization::getById($request->user()->id, $id);
+
         return $this->sendResponse(new SquadResource($this->squadService->getById($id)), "", 200);
     }
 
     public function delete(Request $request, $id)
     {
-        return $this->squadService->delete($id);
+        SquadAuthorization::deleteById($request->user()->id, $id);
+
+        $this->sendResponse($this->squadService->delete($id), "", 200);
     }
 }
