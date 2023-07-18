@@ -62,7 +62,7 @@ class SquadUserService
 
         $existingUser = $this->findUserOrFail($user_id);
 
-        $existingSquadUser = $this->findSquadUserOrFailBySquadAndUser($squad_id, $user_id);
+        $existingSquadUser = $this->findSquadUserOrFailBySquadAndUser($user_id, $squad_id);
 
         $data["squad_id"] = $squad_id;
         $data["user_id"] = $user_id;
@@ -76,7 +76,7 @@ class SquadUserService
 
         $existingUser = $this->findUserOrFail($user_id);
 
-        $existingSquadUser = $this->findSquadUserOrFailBySquadAndUser($squad_id, $user_id);
+        $existingSquadUser = $this->findSquadUserOrFailBySquadAndUser($user_id, $squad_id);
 
         return $this->squadUserRepository->delete($existingSquadUser->id);
     }
@@ -87,8 +87,8 @@ class SquadUserService
 
         $existingUser = $this->findUserOrFail($user_id);
 
-        $existingSquadUser = $this->findSquadUserOrFailBySquadAndUser($squad_id, $user_id);
-        
+        $existingSquadUser = $this->findSquadUserOrFailBySquadAndUser($user_id, $squad_id);
+
         return $this->squadUserRepository->getBySquadAndUser($squad_id, $user_id);
     }
 }

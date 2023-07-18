@@ -13,7 +13,7 @@ class SquadPolicy
         return $user->isAdmin();
     }
 
-    public function update(User $user, $squad, $squadUser)
+    public function update(User $user, Squad $squad, SquadUser $squadUser)
     {
         return $user->isAdmin() ||
             ($squad->id == $squadUser->squad_id

@@ -3,8 +3,6 @@
 namespace App\Authorization;
 
 use App\Exceptions\DomainException;
-use App\Models\Squad;
-use App\Models\SquadUser;
 use App\Traits\Squad\SquadFinder;
 use App\Traits\SquadUser\SquadUserFinder;
 use App\Traits\User\UserFinder;
