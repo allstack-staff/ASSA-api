@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Authorization\DemandAuthorization;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Requests\Demand\CreateDemandRequest;
 use App\Http\Requests\Demand\UpdateDemandRequest;
@@ -21,6 +22,8 @@ class DemandController extends BaseController
 
     public function store(CreateDemandRequest $request, $squad_id, $project_id)
     {
+        DemandAuthorization::store($request->user()->id, $squad_id, $project_id);
+
         $demand = $this->demandService->create($request->validated(), $squad_id, $project_id);
 
         return $this->sendResponse(new DemandResource($demand), "", 201);
@@ -28,6 +31,8 @@ class DemandController extends BaseController
 
     public function update(UpdateDemandRequest $request, $squad_id, $project_id, $demand_id)
     {
+        DemandAuthorization::update($request->user()->id, $squad_id, $project_id, $demand_id);
+
         $demand = $this->demandService->update($request->validated(), $squad_id, $project_id, $demand_id);
 
         return $this->sendResponse(new DemandResource($demand), "", 200);
@@ -35,6 +40,8 @@ class DemandController extends BaseController
 
     public function getAllByProject(Request $request, $squad_id, $project_id)
     {
+        DemandAuthorization::getAllByProject($request->user()->id, $squad_id, $project_id);
+
         $demands = $this->demandService->getAllByProject($squad_id, $project_id);
 
         return $this->sendResponse(new DemandCollection($demands), "", 200);
@@ -42,6 +49,8 @@ class DemandController extends BaseController
 
     public function getById(Request $request, $squad_id, $project_id, $demand_id)
     {
+        DemandAuthorization::getById($request->user()->id, $squad_id, $project_id, $demand_id);
+
         $demand = $this->demandService->getById($squad_id, $project_id, $demand_id);
 
         return $this->sendResponse(new DemandResource($demand), "", 200);
@@ -49,6 +58,8 @@ class DemandController extends BaseController
 
     public function delete(Request $request, $squad_id, $project_id, $demand_id)
     {
+        DemandAuthorization::delete($request->user()->id, $squad_id, $project_id, $demand_id);
+
         $demand = $this->demandService->delete($squad_id, $project_id, $demand_id);
 
         return $this->sendResponse("", "", 200);

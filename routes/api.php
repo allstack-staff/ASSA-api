@@ -53,11 +53,11 @@ Route::get('/squads/{squad_id}/projects/{project_id}', [ProjectController::class
 Route::delete('/squads/{squad_id}/projects/{project_id}', [ProjectController::class, 'delete'])->middleware(['auth:sanctum', 'type.user']);
 
 // PROJECT DEMANDS
-Route::post('/squads/{squad_id}/projects/{project_id}/demands/register', [DemandController::class, 'store']);
-Route::put('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [DemandController::class, 'update']);
-Route::get('/squads/{squad_id}/projects/{project_id}/demands', [DemandController::class, 'getAllByProject']);
-Route::get('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [DemandController::class, 'getById']);
-Route::delete('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [DemandController::class, 'delete']);
+Route::post('/squads/{squad_id}/projects/{project_id}/demands/register', [DemandController::class, 'store'])->middleware(['auth:sanctum', 'type.user']);
+Route::put('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [DemandController::class, 'update'])->middleware(['auth:sanctum', 'type.user']);
+Route::get('/squads/{squad_id}/projects/{project_id}/demands', [DemandController::class, 'getAllByProject'])->middleware(['auth:sanctum', 'type.user']);
+Route::get('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [DemandController::class, 'getById'])->middleware(['auth:sanctum', 'type.user']);
+Route::delete('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [DemandController::class, 'delete'])->middleware(['auth:sanctum', 'type.user']);
 
 // PROJECT REQUESTS
 Route::get('/squads/{squad_id}/projects/{project_id}/requests', [RequestController::class, 'getAllByProject']);
