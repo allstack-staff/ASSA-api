@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Policies\ProjectPolicy;
 use App\Policies\SquadPolicy;
 use App\Policies\SquadUserPolicy;
 use App\Policies\UserPolicy;
@@ -35,5 +36,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define("user-get-by-user-and-squad", [SquadUserPolicy::class, "getBySquadAndUser"]);
         Gate::define("user-update-squad-user", [SquadUserPolicy::class, "update"]);
         Gate::define("user-delete-squad-user", [SquadUserPolicy::class, "delete"]);
+
+        // PROJECT POLICIES
+        Gate::define("user-add-project-to-squad", [ProjectPolicy::class, "store"]);
+        Gate::define("user-update-project", [ProjectPolicy::class, "update"]);
+        Gate::define("user-delete-project", [ProjectPolicy::class, "deleteById"]);
     }
 }
