@@ -22,7 +22,9 @@ class ProjectController extends BaseController
 
     public function store(CreateProjectRequest $request, $squad_id)
     {
-        ProjectAuthorization::store($request->user()->id, $squad_id);
+        if ($request->user()->isStandard()) {
+            ProjectAuthorization::store($request->user()->id, $squad_id);
+        }
 
         $project = $this->projectService->create($request->validated(), $squad_id);
 
@@ -31,7 +33,9 @@ class ProjectController extends BaseController
 
     public function update(UpdateProjectRequest $request, $squad_id, $project_id)
     {
-        ProjectAuthorization::update($request->user()->id, $squad_id, $project_id);
+        if ($request->user()->isStandard()) {
+            ProjectAuthorization::update($request->user()->id, $squad_id, $project_id);
+        }
 
         $project = $this->projectService->update($request->validated(), $squad_id, $project_id);
 
@@ -54,7 +58,9 @@ class ProjectController extends BaseController
 
     public function delete(Request $request, $squad_id, $project_id)
     {
-        ProjectAuthorization::deleteById($request->user()->id, $squad_id, $project_id);
+        if ($request->user()->isStandard()) {
+            ProjectAuthorization::deleteById($request->user()->id, $squad_id, $project_id);
+        }
 
         $project = $this->projectService->delete($squad_id, $project_id);
 

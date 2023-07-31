@@ -22,7 +22,9 @@ class DemandController extends BaseController
 
     public function store(CreateDemandRequest $request, $squad_id, $project_id)
     {
-        DemandAuthorization::store($request->user()->id, $squad_id, $project_id);
+        if ($request->user()->isStandard()) {
+            DemandAuthorization::store($request->user()->id, $squad_id, $project_id);
+        }
 
         $demand = $this->demandService->create($request->validated(), $squad_id, $project_id);
 
@@ -31,7 +33,9 @@ class DemandController extends BaseController
 
     public function update(UpdateDemandRequest $request, $squad_id, $project_id, $demand_id)
     {
-        DemandAuthorization::update($request->user()->id, $squad_id, $project_id, $demand_id);
+        if ($request->user()->isStandard()) {
+            DemandAuthorization::update($request->user()->id, $squad_id, $project_id, $demand_id);
+        }
 
         $demand = $this->demandService->update($request->validated(), $squad_id, $project_id, $demand_id);
 
@@ -40,7 +44,9 @@ class DemandController extends BaseController
 
     public function getAllByProject(Request $request, $squad_id, $project_id)
     {
-        DemandAuthorization::getAllByProject($request->user()->id, $squad_id, $project_id);
+        if ($request->user()->isStandard()) {
+            DemandAuthorization::getAllByProject($request->user()->id, $squad_id, $project_id);
+        }
 
         $demands = $this->demandService->getAllByProject($squad_id, $project_id);
 
@@ -49,7 +55,9 @@ class DemandController extends BaseController
 
     public function getById(Request $request, $squad_id, $project_id, $demand_id)
     {
-        DemandAuthorization::getById($request->user()->id, $squad_id, $project_id, $demand_id);
+        if ($request->user()->isStandard()) {
+            DemandAuthorization::getById($request->user()->id, $squad_id, $project_id, $demand_id);
+        }
 
         $demand = $this->demandService->getById($squad_id, $project_id, $demand_id);
 
@@ -58,7 +66,9 @@ class DemandController extends BaseController
 
     public function delete(Request $request, $squad_id, $project_id, $demand_id)
     {
-        DemandAuthorization::delete($request->user()->id, $squad_id, $project_id, $demand_id);
+        if ($request->user()->isStandard()) {
+            DemandAuthorization::delete($request->user()->id, $squad_id, $project_id, $demand_id);
+        }
 
         $demand = $this->demandService->delete($squad_id, $project_id, $demand_id);
 

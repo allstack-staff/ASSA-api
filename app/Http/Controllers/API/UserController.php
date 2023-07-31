@@ -23,7 +23,9 @@ class UserController extends BaseController
 
     public function store(CreateUserRequest $request)
     {
-        UserAuthorization::store($request->user()->id);
+        if ($request->user()->isStandard()) {
+            UserAuthorization::store($request->user()->id);
+        }
 
         $user = $this->userService->create($request->validated());
 
@@ -39,7 +41,9 @@ class UserController extends BaseController
 
     public function getAll(Request $request)
     {
-        UserAuthorization::getAll($request->user()->id);
+        if ($request->user()->isStandard()) {
+            UserAuthorization::getAll($request->user()->id);
+        }
 
         $filterParams = UserFilter::getFilter($request);
 

@@ -24,7 +24,9 @@ class RequestController extends BaseController
         $requestArray = $request->validated();
         $requestArray["user_id"] = $request->user()->id;
 
-        RequestAuthorization::store($request->user()->id, $requestArray["squad_id"], $requestArray["project_id"]);
+        if ($request->user()->isStandard()) {
+            RequestAuthorization::store($request->user()->id, $requestArray["squad_id"], $requestArray["project_id"]);
+        }
 
         $requestCreated = $this->requestService->create($requestArray);
 
@@ -33,7 +35,9 @@ class RequestController extends BaseController
 
     public function getAllByProject(Request $request, $squad_id, $project_id)
     {
-        RequestAuthorization::getAllByProject($request->user()->id, $squad_id, $project_id);
+        if ($request->user()->isStandard()) {
+            RequestAuthorization::getAllByProject($request->user()->id, $squad_id, $project_id);
+        }
 
         $requests = $this->requestService->getAllByProject($squad_id, $project_id);
 
@@ -42,7 +46,9 @@ class RequestController extends BaseController
 
     public function getById(Request $request, $squad_id, $project_id, $request_id)
     {
-        RequestAuthorization::getById($request->user()->id, $squad_id, $project_id);
+        if ($request->user()->isStandard()) {
+            RequestAuthorization::getById($request->user()->id, $squad_id, $project_id);
+        }
 
         $resquest = $this->requestService->getById($squad_id, $project_id, $request_id);
 

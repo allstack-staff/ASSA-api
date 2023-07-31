@@ -24,7 +24,9 @@ class SquadController extends BaseController
 
     public function store(CreateSquadRequest $request)
     {
-        SquadAuthorization::store($request->user()->id);
+        if ($request->user()->isStandard()) {
+            SquadAuthorization::store($request->user()->id);
+        }
 
         $data = $this->squadService->create($request->validated(), $request->user());
 
@@ -40,7 +42,9 @@ class SquadController extends BaseController
 
     public function update(UpdateSquadRequest $request, $id)
     {
-        SquadAuthorization::update($request->user()->id, $id);
+        if ($request->user()->isStandard()) {
+            SquadAuthorization::update($request->user()->id, $id);
+        }
 
         $squad = $this->squadService->update($request->validated(), $id);
 
@@ -49,7 +53,9 @@ class SquadController extends BaseController
 
     public function getAll(Request $request)
     {
-        SquadAuthorization::getAll($request->user()->id);
+        if ($request->user()->isStandard()) {
+            SquadAuthorization::getAll($request->user()->id);
+        }
 
         $filterParams = SquadFilter::getFilter($request);
 
@@ -58,14 +64,18 @@ class SquadController extends BaseController
 
     public function getById(Request $request, $id)
     {
-        SquadAuthorization::getById($request->user()->id, $id);
+        if ($request->user()->isStandard()) {
+            SquadAuthorization::getById($request->user()->id, $id);
+        }
 
         return $this->sendResponse(new SquadResource($this->squadService->getById($id)), "", 200);
     }
 
     public function delete(Request $request, $id)
     {
-        SquadAuthorization::deleteById($request->user()->id, $id);
+        if ($request->user()->isStandard()) {
+            SquadAuthorization::deleteById($request->user()->id, $id);
+        }
 
         $this->sendResponse($this->squadService->delete($id), "", 200);
     }

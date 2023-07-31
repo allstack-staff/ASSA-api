@@ -22,7 +22,9 @@ class SquadUserController extends BaseController
 
     public function store(CreateSquadUserRequest $request, $squad_id, $user_id)
     {
-        SquadUserAuthorization::store($request->user()->id, $squad_id);
+        if ($request->user()->isStandard()) {
+            SquadUserAuthorization::store($request->user()->id, $squad_id);
+        }
 
         $squad = $this->squadUserService->create($request->validated(), $squad_id, $user_id);
 
@@ -31,28 +33,36 @@ class SquadUserController extends BaseController
 
     public function getUsersBySquad(Request $request, $squad_id)
     {
-        SquadUserAuthorization::getUsersBySquad($request->user()->id, $squad_id);
+        if ($request->user()->isStandard()) {
+            SquadUserAuthorization::getUsersBySquad($request->user()->id, $squad_id);
+        }
 
         return $this->sendResponse(new SquadUserCollection($this->squadUserService->getSquadUsersBySquad($squad_id)), "", 200);
     }
 
     public function getBySquadAndUser(Request $request, $squad_id, $user_id)
     {
-        SquadUserAuthorization::getBySquadAndUser($request->user()->id, $squad_id);
+        if ($request->user()->isStandard()) {
+            SquadUserAuthorization::getBySquadAndUser($request->user()->id, $squad_id);
+        }
 
         return $this->sendResponse(new SquadUserResource($this->squadUserService->getBySquadAndUser($squad_id, $user_id)), "", 200);
     }
 
     public function update(UpdateSquadUserRequest $request, $squad_id, $user_id)
     {
-        SquadUserAuthorization::update($request->user()->id, $squad_id);
+        if ($request->user()->isStandard()) {
+            SquadUserAuthorization::update($request->user()->id, $squad_id);
+        }
 
         return $this->sendResponse(new SquadUserResource($this->squadUserService->update($request->validated(), $squad_id, $user_id)), "", 200);
     }
 
     public function deleteUserFromSquad(Request $request, $squad_id, $user_id)
     {
-        SquadUserAuthorization::delete($request->user()->id, $squad_id, $user_id);
+        if ($request->user()->isStandard()) {
+            SquadUserAuthorization::delete($request->user()->id, $squad_id, $user_id);
+        }
 
         $this->squadUserService->deleteUserFromSquad($squad_id, $user_id);
 
