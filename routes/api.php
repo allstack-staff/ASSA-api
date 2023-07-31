@@ -60,8 +60,8 @@ Route::get('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [Dema
 Route::delete('/squads/{squad_id}/projects/{project_id}/demands/{demand_id}', [DemandController::class, 'delete'])->middleware(['auth:sanctum', 'type.user']);
 
 // PROJECT REQUESTS
-Route::get('/squads/{squad_id}/projects/{project_id}/requests', [RequestController::class, 'getAllByProject']);
-Route::get('/squads/{squad_id}/projects/{project_id}/requests/{request_id}', [RequestController::class, 'getById']);
+Route::get('/squads/{squad_id}/projects/{project_id}/requests', [RequestController::class, 'getAllByProject'])->middleware(['auth:sanctum', 'type.user']);
+Route::get('/squads/{squad_id}/projects/{project_id}/requests/{request_id}', [RequestController::class, 'getById'])->middleware(['auth:sanctum', 'type.user']);
 
 // REQUESTS
-Route::post('/requests/register', [RequestController::class, 'store']);
+Route::post('/requests/register', [RequestController::class, 'store'])->middleware(['auth:sanctum', 'type.user']);

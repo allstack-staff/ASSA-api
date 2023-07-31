@@ -31,7 +31,7 @@ class RequestService
 
         $existingSquad = $this->findSquadOrFail($data["squad_id"]);
 
-        $existingSquadUser = $this->findSquadUserOrFailBySquadAndUser($data["user_id"], $data["project_id"]);
+        $existingSquadUser = $this->findSquadUserOrFailBySquadAndUser($data["user_id"], $data["squad_id"]);
 
         $data["status"] = "Under review";
         $data["project_id"] = $data["project_id"];

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Policies\DemandPolicy;
 use App\Policies\ProjectPolicy;
+use App\Policies\RequestPolicy;
 use App\Policies\SquadPolicy;
 use App\Policies\SquadUserPolicy;
 use App\Policies\UserPolicy;
@@ -49,5 +50,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define("user-get-all-demands-by-project", [DemandPolicy::class, "getAllByProject"]);
         Gate::define("user-get-demands-by-id", [DemandPolicy::class, "getById"]);
         Gate::define("delete-demand-by-id", [DemandPolicy::class, "delete"]);
+
+        // REQUEST POLICIES
+        Gate::define("user-add-demand-request", [RequestPolicy::class, "store"]);
+        Gate::define("user-get-all-demand-requests-by-project", [RequestPolicy::class, "getAllByProject"]);
+        Gate::define("user-get-demand-request", [RequestPolicy::class, "getById"]);
     }
 }

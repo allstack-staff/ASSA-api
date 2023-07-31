@@ -16,7 +16,6 @@ class CreateRequestRequest extends FormRequest
             'priority' => 'min:1|required|string|max:255',
             'deadline' => 'nullable|date',
             'squad_id' => 'required|integer',
-            'user_id' => 'required|integer',
             'project_id' => 'required|integer',
         ];
     }
